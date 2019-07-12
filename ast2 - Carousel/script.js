@@ -1,17 +1,17 @@
 const CONT_WIDTH = 400;
 const CONT_HEIGHT = 240;
 
-function Carousel(wrapper) {
+function Carousel(container) {
 
     //carousel container
-    var container = document.querySelector('.carousel-container');
+    //var container = document.querySelector('.carousel-container');
     container.style.width = CONT_WIDTH + "px";
     container.style.height = CONT_HEIGHT + "px";
     container.style.overflow = "hidden";
     container.style.position = "relative";
 
     //carousel wrapper img
-    var img_coll = document.querySelectorAll('.carousel-image-wrapper img');
+    var img_coll = container.querySelectorAll('.carousel-image-wrapper img');
     var img_arr = Array.from(img_coll);
 
     img_arr.forEach(item => {
@@ -19,11 +19,13 @@ function Carousel(wrapper) {
         item.style.height = CONT_HEIGHT + "px";
         item.style.float = "left";
     });
+     
+    var i = 0;
 
     //carousel wrapper
     const WRAPPER_WIDTH = img_arr.length * CONT_WIDTH;
 
-    var wrapper = document.querySelector('.carousel-image-wrapper');
+    var wrapper = container.querySelector('.carousel-image-wrapper');
     wrapper.style.width = WRAPPER_WIDTH + "px";
     wrapper.style.height = CONT_HEIGHT + "px";
     wrapper.style.marginLeft = 0 + "px";
@@ -64,29 +66,27 @@ function Carousel(wrapper) {
     indicator.style.left = 160 + "px";
 
 
-    button1 = document.createElement("button");
-    button1.style.height=10+'px';
-    button1.style.width=10+'px'; 
-    button1.style.marginRight = 5 + "px";
-    button1.style.borderRadius = "50%";
-    button2 = document.createElement("button");
-    button2.style.height=10+'px';
-    button2.style.width=10+'px'; 
-    button2.style.marginRight = 5 + "px";
-    button2.style.borderRadius = "50%";
-    button3 = document.createElement("button");
-    button3.style.height=10+'px';
-    button3.style.width=10+'px'; 
-    button3.style.marginRight = 5 + "px";
-    button3.style.borderRadius = "50%";
-    indicator.appendChild(button1);
-    indicator.appendChild(button2);
-    indicator.appendChild(button3);
 
     var buttonArr = [];
-    buttonArr.push(button1);
-    buttonArr.push(button2);
-    buttonArr.push(button3);
+    for(let j=0; j<img_arr.length;j++) {
+        
+        button1 = document.createElement("button");
+        button1.style.height=10+'px';
+        button1.style.width=10+'px'; 
+        button1.style.marginRight = 5 + "px";
+        button1.style.borderRadius = "50%";
+        
+        indicator.appendChild(button1);
+        buttonArr.push(button1);
+
+        button1.onclick = () => {
+            clearInterval(changer);
+            buttonArr[i].style.backgroundColor='white';
+            buttonArr[j].style.backgroundColor='black';
+            this.animateImage(i, j);
+            i = j;
+        }
+    }
 
 
 
@@ -154,9 +154,6 @@ function Carousel(wrapper) {
         }, 1);
     }
 }
-
-var wrapper = new Carousel(wrapper);
-wrapper.setter();
 
 
 
