@@ -111,6 +111,7 @@ function Carousel(wrapper) {
             buttonArr[i].style.backgroundColor='lightgray';
             buttonArr[i+1].style.backgroundColor='black';
             this.animateImage(i, i+1);
+            i = i+1;
         }
     }
 
@@ -143,7 +144,7 @@ function Carousel(wrapper) {
             }
             else if(cI > nI) {
                 this.wrapper.style.marginLeft = parseInt(this.wrapper.style.marginLeft,10) - ((nI - cI) * CONT_WIDTH)/100 + 'px';
-                if(Math.abs(parseInt(this.wrapper.style.marginLeft,10)) <= nI*200) {
+                if(Math.abs(parseInt(this.wrapper.style.marginLeft,10)) <= nI*CONT_WIDTH) {
                     clearInterval(animation);
                     this.setter();
                 }
