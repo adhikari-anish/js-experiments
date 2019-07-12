@@ -109,7 +109,7 @@ function Carousel(wrapper) {
     rImg.onclick = () => {
         if(i != 2 && !this.animating) {
             clearInterval(changer);
-            buttonArr[i].style.backgroundColor='lightgray';
+            buttonArr[i].style.backgroundColor='white';
             buttonArr[i+1].style.backgroundColor='black';
             this.animateImage(i, i+1);
 			i = i+1;
