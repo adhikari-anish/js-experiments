@@ -94,9 +94,10 @@ function Carousel(wrapper) {
     var i = 0;
     var changer;
     this.hold = 2000;
+	this.isanimating = false;
 
     lImg.onclick = () => {
-        if(i != 0) {
+        if(i != 0 && !this.animating) {
             clearInterval(changer);
             buttonArr[i].style.backgroundColor='white';
             buttonArr[i-1].style.backgroundColor='black';
@@ -106,12 +107,12 @@ function Carousel(wrapper) {
     }
 
     rImg.onclick = () => {
-        if(i != 2) {
+        if(i != 2 && !this.animating) {
             clearInterval(changer);
             buttonArr[i].style.backgroundColor='lightgray';
             buttonArr[i+1].style.backgroundColor='black';
             this.animateImage(i, i+1);
-            i = i+1;
+			i = i+1;
         }
     }
 
@@ -130,16 +131,16 @@ function Carousel(wrapper) {
         
         buttonArr[cI].style.backgroundColor='white';
         buttonArr[nI].style.backgroundColor='black';
-
+		this.isanimating = true;
         let animation = setInterval(() => {
 
             if(cI < nI) {
                 this.wrapper.style.marginLeft = parseInt(this.wrapper.style.marginLeft,10) - ((nI - cI) * CONT_WIDTH)/100 + 'px';
-                
 
                 if(Math.abs(parseInt(this.wrapper.style.marginLeft,10)) >= nI * CONT_WIDTH) {
                     clearInterval(animation);
                     this.setter();
+					this.isanimating = false;
                 }
             }
             else if(cI > nI) {
@@ -147,6 +148,7 @@ function Carousel(wrapper) {
                 if(Math.abs(parseInt(this.wrapper.style.marginLeft,10)) <= nI*CONT_WIDTH) {
                     clearInterval(animation);
                     this.setter();
+					this.isanimating = false;
                 }
             }
         }, 1);
